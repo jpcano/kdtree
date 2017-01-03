@@ -62,7 +62,7 @@ public class PointSET {
         for (Point2D point : points) {
             if (p.distanceSquaredTo(point) < min) {
                 min = p.distanceSquaredTo(point);
-                //champion = new Point2D(point.x(), point.y());
+                // champion = new Point2D(point.x(), point.y());
                 champion = point;
             }
         }
@@ -75,15 +75,15 @@ public class PointSET {
         PointSET world =  new PointSET();
         StdDraw.clear();
         StdDraw.setPenColor(StdDraw.RED);
-        StdDraw.setPenRadius(.01);
+        StdDraw.setPenRadius(0.01);
         StdDraw.setScale(-2, 4);
 
-        world.insert(new Point2D(0,0));
-        world.insert(new Point2D(0,0));
-        world.insert(new Point2D(1,0));
-        world.insert(new Point2D(2,0));
-        world.insert(new Point2D(0,1));
-        world.insert(new Point2D(0,2));
+        world.insert(new Point2D(0, 0));
+        world.insert(new Point2D(0, 0));
+        world.insert(new Point2D(1, 0));
+        world.insert(new Point2D(2, 0));
+        world.insert(new Point2D(0, 1));
+        world.insert(new Point2D(0, 2));
         world.draw();
 
         System.out.println("Empty: " + world.isEmpty());

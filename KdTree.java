@@ -2,12 +2,13 @@ import edu.princeton.cs.algs4.Point2D;
 import edu.princeton.cs.algs4.RectHV;
 import edu.princeton.cs.algs4.StdDraw;
 import edu.princeton.cs.algs4.SET;
-import edu.princeton.cs.algs4.Queue;
+// import edu.princeton.cs.algs4.Queue;
 
 public class KdTree {
-    private Node root;
     private static final boolean O_VERTICAL    = true;
     private static final boolean O_HORIZONTAL  = false;
+    private Node root;
+    private int size;
 
     private static class Node {
         private Point2D p;      // the point
@@ -15,27 +16,29 @@ public class KdTree {
         private Node lb;        // the left/bottom subtree
         private Node rt;        // the right/top subtree
 
-        public Node (Point2D p, RectHV r) { 
+        public Node(Point2D p, RectHV r) { 
             this.p = p;
             this.rect = new RectHV(r.xmin(), r.ymin(), r.xmax(), r.ymax());
         }
     }
 
-    public KdTree() {}
+    public KdTree() { }
 
     public boolean isEmpty() { return size() == 0; }   
             
-    public int size() { return size(root); }  
+    public int size() { return size; }  
 
+    /* 
     private int size(Node x) {
         if (x == null) return 0;
         else return 1 + size(x.lb) + size(x.rt);
     }
-              
+    */      
     public void insert(Point2D p) { 
         if (p == null)
             throw new NullPointerException("Expect a point to insert");
-        root = insert(root, p, O_VERTICAL, new RectHV(0,0,1,1));
+        root = insert(root, p, O_VERTICAL, new RectHV(0, 0, 1, 1));
+        size++;
     }      
 
     private Node insert(Node x, Point2D p, boolean orientation, RectHV rect) {
@@ -84,10 +87,10 @@ public class KdTree {
 
     public void draw() {
         StdDraw.clear();
-        draw(root, new Point2D(0,0), O_VERTICAL, new RectHV(0,0,1,1));
-        //StdDraw.setPenRadius(0.004);
-       // StdDraw.setPenColor(StdDraw.BLACK);
-        //StdDraw.rectangle(0.5, 0.5, 0.5, 0.5);
+        draw(root, new Point2D(0,0), O_VERTICAL, new RectHV(0, 0, 1, 1));
+        // StdDraw.setPenRadius(0.004);
+        // StdDraw.setPenColor(StdDraw.BLACK);
+        // StdDraw.rectangle(0.5, 0.5, 0.5, 0.5);
     }
 
     private void draw(Node x, Point2D p, boolean orientation, RectHV r) {
@@ -135,7 +138,7 @@ public class KdTree {
         return nearest(root, p, null, Double.POSITIVE_INFINITY);
     }
 
-    private Point2D nearest(Node x, Point2D p, Point2D champ, Double min) {
+    private Point2D nearest(Node x, Point2D p, Point2D champ, double min) {
         if (x == null) return champ;
         if (p.distanceSquaredTo(x.p) < min) {
             min = p.distanceSquaredTo(x.p);
@@ -154,9 +157,9 @@ public class KdTree {
     public static void main(String[] args) {
         KdTree world =  new KdTree();
 
-        world.insert(new Point2D(0.4,0.3));
-        world.insert(new Point2D(0.2,0.3));
-        world.insert(new Point2D(0.1,0.5));
+        world.insert(new Point2D(0.4 ,0.3));
+        world.insert(new Point2D(0.2, 0.3));
+        world.insert(new Point2D(0.1, 0.5));
         world.draw();
 
         System.out.println("Empty: " + world.isEmpty());
@@ -164,7 +167,7 @@ public class KdTree {
 
         System.out.println("Contains 0,0: " + world.contains(new Point2D(0, 0)));
         System.out.println("Contains 0.4,0.3: " + world.contains(new Point2D(0.4, 0.3)));
-        /*System.out.println("Nearest to 1,2: " + world.nearest(new Point2D(1, 2)));
+        /* System.out.println("Nearest to 1,2: " + world.nearest(new Point2D(1, 2)));
         
         RectHV rect = new RectHV(0.5, -1, 3, 1);
         rect.draw();
