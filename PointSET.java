@@ -60,8 +60,8 @@ public class PointSET {
             return null;
         
         for (Point2D point : points) {
-            if (p.distanceTo(point) < min) {
-                min = p.distanceTo(point);
+            if (p.distanceSquaredTo(point) < min) {
+                min = p.distanceSquaredTo(point);
                 //champion = new Point2D(point.x(), point.y());
                 champion = point;
             }
